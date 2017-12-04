@@ -44,13 +44,13 @@
             <div class="container-fluid">
                 <div class="container">
                     <div ng-show="view=='main'">
-                        <p>Main content</p>
+                        <div ng-include="'views/main.html'"></div>
                     </div>
                     <div ng-show="view=='locations'">
-                        <p>Locations content</p>
+                        <div ng-include="'views/locations.html'"></div>
                     </div>
                     <div ng-show="view=='diveSites'">
-                        <p>dives content</p>
+                        <div ng-include="'views/sites.html'"></div>
                     </div>
                 </div>
             </div>
