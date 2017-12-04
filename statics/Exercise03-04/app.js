@@ -36,6 +36,27 @@ app.directive('ywActiveMenu', function(currentSpot) {
         currentSpot.setCurrentSpot(ywActiveMenu, ywActiveTitle);
     }
 });
+app.directive('ywMenuId', function(currentSpot) {
+    var menuElements = [];    
+    return function(scope, element, attrs) {
+        var menuId = attrs['ywMenuId'];
+        menuElements.push({ id: menuId, node: element});
+        var watcherFn = function(watchScope) {
+            return watchScope.$eval('getActiveMenu()');
+        }
+        scope.$watch(watcherFn, function (newValue, oldValue) {
+            for(var i = 0; i < menuElements.length; i++) {
+                var menuElement = menuElements[i];
+                if(currentSpot.getActiveMenu() === menuElement.id) {
+                    menuElement.node.addClass('active');
+                }
+                else {
+                    menuElement.node.removeClass('active');
+                }
+            }
+        })
+    }
+});
 app.controller('AdminCtrl', function($scope, currentSpot) {
     $scope.getTitle = function() {
         return currentSpot.getTitleText();
