@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html ng-app="diveLog">
+    <head>
+        <title>dive log</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    </head>
+    <body>
+        <div class="container-fluid">
+            <h1>My latest dives (With API services)</h1>
+            <div class="row">
+                <div class="col-sm-4 col-sm-offset-8">
+                    <input class="form-control input-lg" placeholder="Search" ng-model="searchKey">
+                </div>
+            </div>
+            <div class="row" ng-controller="diveLogCtrl">
+                <div class="col-sm-4" ng-repeat="dive in dives | filter: searchKey">
+                    <h3>{{dive.site}}</h3>
+                    <h4>{{dive.location}}</h4>
+                    <h2>{{dive.depth}} feet | {{dive.time}} min</h2>
+                </div>
+            </div>
+        </div>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.1/angular.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.1/angular-route.min.js"></script>
+        <script src="app.js"></script>
+    </body>
+</html>
