@@ -37,9 +37,16 @@ app.directive('ywActiveMenu', function(currentSpot) {
     }
 });
 app.directive('ywMenuId', function(currentSpot) {
-    var menuElements = [];    
+    var menuElements = [];
+    function setActive(element, menuId) {
+        if(currentSpot.getActiveMenu() == menuId) {
+            element.addClass('active');
+        } else {
+            element.removeClass('active');
+        }
+    }    
     return function(scope, element, attrs) {
-        var menuId = attrs['ywMenuId'];
+        var menuId = attrs["ywMenuId"];
         menuElements.push({ id: menuId, node: element});
         var watcherFn = function(watchScope) {
             return watchScope.$eval('getActiveMenu()');
@@ -47,12 +54,7 @@ app.directive('ywMenuId', function(currentSpot) {
         scope.$watch(watcherFn, function (newValue, oldValue) {
             for(var i = 0; i < menuElements.length; i++) {
                 var menuElement = menuElements[i];
-                if(currentSpot.getActiveMenu() === menuElement.id) {
-                    menuElement.node.addClass('active');
-                }
-                else {
-                    menuElement.node.removeClass('active');
-                }
+                setActive(menuElement.node, menuElement.id);
             }
         })
     }
@@ -60,9 +62,6 @@ app.directive('ywMenuId', function(currentSpot) {
 app.controller('AdminCtrl', function($scope, currentSpot) {
     $scope.getTitle = function() {
         return currentSpot.getTitleText();
-    },
-    $scope.isActive = function(activeMenu) {
-        return currentSpot.getActiveMenu() === activeMenu;
     }
 });
 app.controller('MainCtrl', function($scope, currentSpot) {
