@@ -8,6 +8,10 @@ app.config(function($routeProvider) {
         templateUrl: 'views/sites.html',
         controller: 'SitesCtrl'
     })
+    .when('/types', {
+        templateUrl: 'views/types.html',
+        controller: 'TypesCtrl'
+    })
     .otherwise({
         templateUrl: 'views/main.html',
         controller: 'MainCtrl'
@@ -71,5 +75,8 @@ app.controller('LocationsCtrl', function($scope, currentSpot) {
     
 });
 app.controller('SitesCtrl', function($scope, currentSpot) {
+    
+});
+app.controller('TypesCtrl', function($scope, currentSpot) {
     
 });
