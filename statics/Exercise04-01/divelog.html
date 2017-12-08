@@ -5,14 +5,20 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     </head>
     <body>
-        <div class="container-fluid">
+        <div class="container-fluid" ng-controller="diveLogCtrl">
             <h1>My latest dives (With API services)</h1>
             <div class="row">
-                <div class="col-sm-4 col-sm-offset-8">
+                <div class="col-sm-8">
+                    <button class="btn btn-lg btn-primary" ng-click="refreshDives()">
+                        Refresh
+                    </button>
+                    <img ng-show="isLoading()" src="img/progressring.gif">
+                </div>
+                <div class="col-sm-4">
                     <input class="form-control input-lg" placeholder="Search" ng-model="searchKey">
                 </div>
             </div>
-            <div class="row" ng-controller="diveLogCtrl">
+            <div class="row">
                 <div class="col-sm-4" ng-repeat="dive in dives | filter: searchKey">
                     <h3>{{dive.site}}</h3>
                     <h4>{{dive.location}}</h4>

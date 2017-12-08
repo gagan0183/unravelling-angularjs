@@ -28,5 +28,18 @@ app.factory('diveLogApi', function() {
 });
 
 app.controller('diveLogCtrl', function($scope, diveLogApi) {
-    $scope.dives = diveLogApi.getDives();
+    $scope.dives = [];
+    var loading = false;
+    $scope.isLoading = function() {
+        return loading;
+    }
+    $scope.refreshDives = function() {
+        loading = true;
+        $scope.dives = [];
+        setTimeout(function() {
+            $scope.dives = diveLogApi.getDives();
+            loading = false;
+            $scope.$apply();
+        }, 1000);
+    } 
 });
