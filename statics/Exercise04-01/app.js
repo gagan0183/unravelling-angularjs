@@ -1,5 +1,5 @@
 var app = angular.module('diveLog', []);
-app.factory('diveLogApi', function() {
+app.factory('diveLogApi', function($q) {
     var dives = [
         {
             site: 'Abu Gotta Ramada',
@@ -20,14 +20,26 @@ app.factory('diveLogApi', function() {
             time: 63
         }
     ];
+    var counter = 0;
     return {
         getDives: function() {
-            return dives;
+            var deferred = $q.defer();
+            counter++;
+            setTimeout(function() {
+                if(counter % 3 == 0) {
+                    deferred.reject('Error: call counter is ' + counter);
+                }
+                else {
+                    deferred.resolve(dives);
+                }
+            }, 1000);
+            return deferred.promise;
         }
     }
 });
 
 app.controller('diveLogCtrl', function($scope, diveLogApi) {
+    $scope.errorMessage = '';
     $scope.dives = [];
     var loading = false;
     $scope.isLoading = function() {
@@ -36,10 +48,17 @@ app.controller('diveLogCtrl', function($scope, diveLogApi) {
     $scope.refreshDives = function() {
         loading = true;
         $scope.dives = [];
-        setTimeout(function() {
-            $scope.dives = diveLogApi.getDives();
-            loading = false;
-            $scope.$apply();
-        }, 1000);
+        $scope.errorMessage = '';
+        diveLogApi.getDives().then(
+            function(data) {
+                $scope.dives = data;
+                loading = false;
+            },
+            function(reason) {
+                $scope.errorMessage = reason;
+                loading = false;
+            }
+        );
+        $scope.$apply();
     } 
 });

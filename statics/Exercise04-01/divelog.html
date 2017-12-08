@@ -19,6 +19,11 @@
                 </div>
             </div>
             <div class="row">
+                <div class="col-sm-12">
+                    <h3 class="text-danger">{{errorMessage}}</h3>
+                </div>
+            </div>
+            <div class="row">
                 <div class="col-sm-4" ng-repeat="dive in dives | filter: searchKey">
                     <h3>{{dive.site}}</h3>
                     <h4>{{dive.location}}</h4>
