@@ -1,6 +1,14 @@
 ﻿<div yw-active-menu="Locations"
      yw-active-title="Manage the list of diving locations"
      ng-controller="locationsCtrl">
+     <div ng-show="hasError()">
+        <div class="alert alert-danger alert-dismissable">
+          <button type="button" class="close" data-dismiss="alert">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <strong>{{errorMessage}}</strong>
+        </div>
+     </div>
   <div class="row" ng-show="isLoading()">
     <div class="col-sm-12">
       <img src="images/progressring.gif" />
